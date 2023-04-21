@@ -46,6 +46,7 @@ cvnd version --log_level error --long | head -n6
 cvnd init <MONIKER> --chain-id <CHAIN_ID>
 cd ~/.cvnd/config
 rm genesis.json
+# Download genesis from https://github.com/cvn-network/docs/genesis.json to same location
 ```
 
 ### Set Config

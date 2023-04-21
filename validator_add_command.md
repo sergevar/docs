@@ -1,0 +1,14 @@
+./cvnd tx staking create-validator \
+--from key2 \
+--chain-id cvn_8008-1 \
+--moniker="<VALIDATOR_MONIKER>" \
+--commission-max-change-rate=0.01 \
+--commission-max-rate=1.0 \
+--commission-rate=0.05 \
+--details="validator2" \
+--security-contact="" \
+--website="" \
+--pubkey $(./cvnd tendermint show-validator) \
+--min-self-delegation="1" \
+--amount <STAKING_AMOUNT>acvnt \
+--gas-prices 7acvnt --gas 301107
