@@ -34,6 +34,10 @@ wget -c https://raw.githubusercontent.com/cvn-network/cvn/release/v1.0.x/network
 wget -c https://raw.githubusercontent.com/cvn-network/cvn/release/v1.0.x/networks/mainnet/config/config.toml -O ~/.cvnd/config/config.toml
 ```
 
+### Downloding cvn snapshot files.
+
+[backup_20231105](https://cvn-data-snapshot.s3.ap-northeast-1.amazonaws.com/backup_20231105.tar.gz)
+
 ### Running a node
 
 ```bash
