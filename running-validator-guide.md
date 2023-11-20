@@ -3,6 +3,14 @@ running-validator-guide.md
 
 At present, the CVNd fully supports installation on linux distributions. For the purpose of this instruction set, we'll be using Ubuntu 20.04.3 LTS. 
 
+## Hardware Requirements
+
+2 core CPU 
+
+8 G RAM 
+
+200G SSD hard driver
+
 ## Software Requirements
 
 Please execute the following statement in the bash command line. You need to use an account with root permissions.
@@ -27,8 +35,7 @@ docker pull ghcr.io/cvn-network/cvn-cosmovisor:2.0.0
 ### Downloading genesis.json and config
 
 ```bash
-mkdir -p ~/go/bin
-mkdir -p ~/cvn
+mkdir -p ~/.cvn/config/
 cd ~/.cvnd/config/
 wget -c https://raw.githubusercontent.com/cvn-network/cvn/release/v1.0.x/networks/mainnet/config/genesis.json -O ~/.cvnd/config/genesis.json
 wget -c https://raw.githubusercontent.com/cvn-network/cvn/release/v1.0.x/networks/mainnet/config/config.toml -O ~/.cvnd/config/config.toml
@@ -155,4 +162,16 @@ cvnd tx distribution withdraw-rewards <your-Bech32-Val> \
 --gas=auto --gas-adjustment=1.5 --gas-prices="7acvnt" \
 --broadcast-mode block \
 --from <your-own-key-name> --yes
+```
+
+## Query validator status
+
+```bash
+cvnd query staking validator "<your-Bech32-Val>" --output json |jq
+```
+
+## unjail validator 
+
+```bash
+cvnd tx slashing unjail --from <your-own-key-name> --gas=auto --gas-adjustment=1.5 --gas-prices="7acvnt"
 ```
