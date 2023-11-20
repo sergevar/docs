@@ -36,7 +36,9 @@ wget -c https://raw.githubusercontent.com/cvn-network/cvn/release/v1.0.x/network
 
 ### Downloding cvn snapshot files.
 
-[backup_20231105](https://cvn-data-snapshot.s3.ap-northeast-1.amazonaws.com/backup_20231105.tar.gz)
+[backup_20231119](https://cvn-data-snapshot.s3.ap-northeast-1.amazonaws.com/backup_20231119.tar.gz)
+
+Unzip this file to `~/.cvnd/`.
 
 ### Running a node
 
@@ -116,7 +118,7 @@ cvnd tx staking create-validator \
 --amount=50cvnt \
 --pubkey=$(cvnd tendermint show-validator) \
 --moniker="node4" \
---chain-id=cvn_2031-1 \
+--chain-id=cvn_2032-1 \
 --commission-rate="0.05" \
 --commission-max-rate="0.10" \
 --commission-max-change-rate="0.01" \
