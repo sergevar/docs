@@ -118,13 +118,13 @@ cvnd query bank balances <Bech32 Acc> \
 
 ```bash
 # amount=50cvnt Indicates the staking amount initialized by this validator;
-# moniker="node4" Here is the custom node name, which can be seen in the verification list in the future.
+# moniker="<show-name> Here is the custom node name, which can be seen in the verification list in the future.
 # commission Set validator revenue proportion configuration
 # min-self-delegation="50" Minimum agent pledge amount
 cvnd tx staking create-validator \
 --amount=50cvnt \
 --pubkey=$(cvnd tendermint show-validator) \
---moniker="node4" \
+--moniker="<show-name>" \
 --chain-id=cvn_2032-1 \
 --commission-rate="0.05" \
 --commission-max-rate="0.10" \
