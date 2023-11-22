@@ -29,7 +29,7 @@ sudo chmod 666 /var/run/docker.sock
 ### Pull images
 
 ```bash
-docker pull ghcr.io/cvn-network/cvn-cosmovisor:2.0.0
+docker pull ghcr.io/cvn-network/cvn-cosmovisor:2.1.1
 ```
 
 ### Downloading genesis.json and config
@@ -154,7 +154,7 @@ cvnd query distribution rewards <your-Bech32-Acc> \
 <your-Bech32-Val> --output json | jq
 ```
 
-## Withdraw all rewards from a given delegation address
+## Withdraw all rewards
 
 ```bash
 cvnd tx distribution withdraw-rewards <your-Bech32-Val> \
@@ -170,7 +170,7 @@ cvnd tx distribution withdraw-rewards <your-Bech32-Val> \
 cvnd query staking validator "<your-Bech32-Val>" --output json |jq
 ```
 
-## unjail validator 
+## Unjail validator 
 
 ```bash
 cvnd tx slashing unjail --from <your-own-key-name> --gas=auto --gas-adjustment=1.5 --gas-prices="7acvnt"
