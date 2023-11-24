@@ -43,7 +43,7 @@ wget -c https://raw.githubusercontent.com/cvn-network/cvn/release/v1.0.x/network
 
 ### Downloding cvn snapshot files.
 
-[backup_20231121](https://cvn-data-snapshot.s3.ap-northeast-1.amazonaws.com/backup_20231121.tar.gz)
+[backup_20231124](https://cvn-data-snapshot.s3.ap-northeast-1.amazonaws.com/backup_20231124.tar.gz)
 
 Unzip this file to `~/.cvnd/`.
 
