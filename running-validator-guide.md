@@ -37,8 +37,8 @@ docker pull ghcr.io/cvn-network/cvn-cosmovisor:2.1.1
 ```bash
 mkdir -p ~/.cvn/config/
 cd ~/.cvnd/config/
-wget -c https://raw.githubusercontent.com/cvn-network/cvn/release/v1.0.x/networks/mainnet/config/genesis.json -O ~/.cvnd/config/genesis.json
-wget -c https://raw.githubusercontent.com/cvn-network/cvn/release/v1.0.x/networks/mainnet/config/config.toml -O ~/.cvnd/config/config.toml
+wget -c https://raw.githubusercontent.com/cvn-network/docs/main/attach/genesis.json -O ~/.cvnd/config/genesis.json
+wget -c https://raw.githubusercontent.com/cvn-network/docs/main/attach/config.toml -O ~/.cvnd/config/config.toml
 ```
 
 ### Downloding cvn snapshot files.
@@ -54,7 +54,7 @@ docker run -it --name cvn \
     -v ~/.cvnd/data:/root/.cvnd/data \
     -v ~/.cvnd/config:/root/.cvnd/config \
     -p 0.0.0.0:26656:26656 -p 127.0.0.1:26657:26657 -p 127.0.0.1:1317:1317 -p 127.0.0.1:8545:8545 \
-    ghcr.io/cvn-network/cvn-cosmovisor:2.0.0 \
+    ghcr.io/cvn-network/cvn-cosmovisor:2.1.1 \
     cosmovisor run start --minimum-gas-prices=100000000acvnt \
     --rpc.laddr tcp://0.0.0.0:26657 \
     --json-rpc.address 0.0.0.0:8545 
@@ -96,7 +96,7 @@ There are two ways to transfer cvn:
 
 ```bash
 cvnd tx bank send <your-own-key-name> \
-<Bech32 Acc> <transfer amount>cvnt --gas=auto --gas-adjustment=1.5 --gas-prices="7acvnt" \
+<Bech32 Acc> <transfer amount>cvnt --gas=auto --gas-adjustment=1.5 --gas-prices="100000000acvnt" \
 --broadcast-mode block \
 --from <your-own-key-name> --yes
 ```
@@ -131,7 +131,7 @@ cvnd tx staking create-validator \
 --commission-max-change-rate="0.01" \
 --min-self-delegation="50" \
 --gas="auto" \
---gas-prices="7acvnt"  \
+--gas-prices="100000000acvnt"  \
 --from=<your-own-key-name>
 ```
 
@@ -159,7 +159,7 @@ cvnd query distribution rewards <your-Bech32-Acc> \
 ```bash
 cvnd tx distribution withdraw-rewards <your-Bech32-Val> \
 --commission \
---gas=auto --gas-adjustment=1.5 --gas-prices="7acvnt" \
+--gas=auto --gas-adjustment=1.5 --gas-prices="100000000acvnt" \
 --broadcast-mode block \
 --from <your-own-key-name> --yes
 ```
@@ -173,5 +173,5 @@ cvnd query staking validator "<your-Bech32-Val>" --output json |jq
 ## Unjail validator 
 
 ```bash
-cvnd tx slashing unjail --from <your-own-key-name> --gas=auto --gas-adjustment=1.5 --gas-prices="7acvnt"
+cvnd tx slashing unjail --from <your-own-key-name> --gas=auto --gas-adjustment=1.5 --gas-prices="100000000acvnt"
 ```
