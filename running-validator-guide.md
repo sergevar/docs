@@ -17,6 +17,7 @@ Please execute the following statement in the bash command line. You need to use
 
 ```bash
 sudo apt-get update
+sudo apt-get upgrade
 sudo apt-get install docker.io htop screen jq -y
 sudo curl -L "https://github.com/docker/compose/releases/download/v2.2.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
@@ -43,26 +44,81 @@ wget -c https://raw.githubusercontent.com/cvn-network/docs/main/attach/config.to
 
 ### Downloding cvn snapshot files.
 
-[backup_20231213](https://cvn-data-snapshot.s3.ap-northeast-1.amazonaws.com/backup_20231213.tar.gz)
+We will use aria2c tools to download snapshot file .
+
+```bash
+sudo apt-get install aria2 -y
+aria2c -s14 -x14 -k100M https://cvn-data-snapshot.s3.ap-northeast-1.amazonaws.com/backup_20231213.tar.gz
+```
 
 Unzip this file to `~/.cvnd/`.
+
+### Create `docker-compose.yaml` file
+
+`docker-compose.yaml`
+
+```yaml
+version: "3"
+
+services:
+  cvn_node:
+    container_name: cvn_node
+    image: ghcr.io/cvn-network/cvn-cosmovisor:2.1.1
+    volumes:
+      - ~/.cvnd/data:/root/.cvnd/data
+      - ~/.cvnd/config:/root/.cvnd/config
+    logging:
+      driver: "local"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    command:
+      - 'cosmovisor'
+      - 'run'
+      - 'start'
+    ports:
+      - 0.0.0.0:26656:26656
+      - 0.0.0.0:26657:26657
+      - 0.0.0.0:26660:26660
+      - 0.0.0.0:1317:1317
+    restart: always
+    networks:
+      - cvn
+
+  node_exporter:
+    container_name: node_exporter
+    image: prom/node-exporter:latest
+    command:
+      - '--path.rootfs=/host'
+    pid: host
+    restart: unless-stopped
+    ports:
+      - 0.0.0.0:9100:9100
+    volumes:
+      - '/:/host:ro,rslave'
+    networks:
+      - cvn
+
+networks:
+  cvn:
+    driver: bridge
+```
 
 ### Running a node
 
 ```bash
-docker run -it --name cvn \
-    -v ~/.cvnd/data:/root/.cvnd/data \
-    -v ~/.cvnd/config:/root/.cvnd/config \
-    -p 0.0.0.0:26656:26656 -p 127.0.0.1:26657:26657 -p 127.0.0.1:1317:1317 -p 127.0.0.1:8545:8545 \
-    ghcr.io/cvn-network/cvn-cosmovisor:2.1.1 \
-    cosmovisor run start --minimum-gas-prices=100000000acvnt \
-    --rpc.laddr tcp://0.0.0.0:26657 \
-    --json-rpc.address 0.0.0.0:8545 
+docker-compose up -d
 ```
+
+### Configure firewall
+
+Open port 26656 in the firewall.
 
 # Create validator
 
 ## Initialize node
+
+* Enter the shell in the docker container and execute the following command .
 
 ```bash
 # You need to change it to your own key name and create key, during which you will enter a password.
