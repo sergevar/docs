@@ -48,7 +48,7 @@ We will use aria2c tools to download snapshot file .
 
 ```bash
 sudo apt-get install aria2 -y
-aria2c -s14 -x14 -k100M https://cvn-data-snapshot.s3.ap-northeast-1.amazonaws.com/backup_20231213.tar.gz
+aria2c -s14 -x14 -k100M https://cvn-data-snapshot.s3.ap-northeast-1.amazonaws.com/backup_20231215.tar.gz
 ```
 
 Unzip this file to `~/.cvnd/`.
